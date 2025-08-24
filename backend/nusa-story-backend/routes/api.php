@@ -4,8 +4,25 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rules\Password;
 
+Route::post("/auth/register", function (Request $request) {
+    $data = $request->validate([
+        'name' => "required|string|max:244",
+        "email" =>  ['required','string','lowercase','email','max:255','unique:'.User::class],
+        "password" => ["required", "confirmed", Password::min(8)->letters()->numbers()]
+    ]);
 
+    $user = User::create([
+        'name'     => $data['name'],
+        'email'    => $data['email'],
+        'password' => Hash::make($data['password']),
+    ]);
+
+    $token = $user->createToken('react', ['*'])->plainTextToken;
+
+    return response()->json(['token' => $token, 'user' => $user], 201);
+})->middleware("throttle:6,1");
 
 Route::post('/auth/login', function (Request $request)  {
     $data = $request->validate([
@@ -13,7 +30,7 @@ Route::post('/auth/login', function (Request $request)  {
         "password" => "required"
     ]);
 
-    $user = User::whwre("email", $data["email"])->first();
+    $user = User::where("email", $data["email"])->first();
     if (!$user || !Hash::check($data['password'], $user->password)) {
         return response()->json(['message' => 'Invalid credentials'], 442);
     }
