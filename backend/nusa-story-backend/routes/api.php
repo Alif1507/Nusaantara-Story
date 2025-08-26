@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookPublicController;
+use App\Http\Controllers\UploadController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Password;
 
-Route::post("/auth/register", function (Request $request) {
+Route::post("/auth/register", function (Request $request) 
+{
     $data = $request->validate([
         'name' => "required|string|max:244",
         "email" =>  ['required','string','lowercase','email','max:255','unique:'.User::class],
@@ -22,10 +27,12 @@ Route::post("/auth/register", function (Request $request) {
     $token = $user->createToken('react', ['*'])->plainTextToken;
 
     return response()->json(['token' => $token, 'user' => $user], 201);
-})->middleware("throttle:6,1");
+})->name("register")->middleware("throttle:6,1");
 
-Route::post('/auth/login', function (Request $request)  {
-    $data = $request->validate([
+
+Route::post('/auth/login', function (Request $request) 
+{
+     $data = $request->validate([
         'email' => "required|email",
         "password" => "required"
     ]);
@@ -43,14 +50,30 @@ Route::post('/auth/login', function (Request $request)  {
         'token' => $tokenplain,
         "user" => $user
     ]);
-})->middleware("throttle:10,1");
+})->name("login")->middleware("throttle:10,1");
 
-Route::post("auth/logout", function (Request $request) {
-    $request->user()->currentAccessToken()?->delete();
-    return response()->json([
+
+Route::post("auth/logout", function (Request $request) 
+{
+     $request->user()->currentAccessToken()?->delete();
+     return response()->json([
         "message" => "all tokens revoked"
     ]);
-})->middleware("auth:sanctum");
+})->name("logout")->middleware("auth:sanctum");
+
+Route::middleware("auth:sanctum")->post("/uploads/images", [UploadController::class, "store"]);
+
+Route::middleware('auth:sanctum')->group(function(){
+Route::get('/books', [BookController::class,'index']);
+Route::post('/books', [BookController::class,'store']);
+Route::get('/books/{book}', [BookController::class,'show']);
+Route::put('/books/{book}', [BookController::class,'update']);
+Route::delete('/books/{book}', [BookController::class,'destroy']);
+Route::post('/books/{book}/publish', [BookController::class,'publish']);
+});
+
+Route::get('/public/books/{slug}' , [BookPublicController::class, "showBySlug"]);
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
