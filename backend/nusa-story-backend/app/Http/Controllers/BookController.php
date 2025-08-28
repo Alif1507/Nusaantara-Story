@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\page;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
+
+     use AuthorizesRequests, ValidatesRequests; 
 
     const MAX_PAGES = 7;
 
@@ -81,6 +86,30 @@ class BookController extends Controller
         $this->authorize("update", $book);
         $book->update(["status" => "published", "published_at" => now()]);
     }
+
+    public function showBySlug(string $slug)
+{
+    $book = Book::where('slug', $slug)
+        ->with(['pages' => fn($q) => $q->orderBy('index')]) // pakai kolom yang ada
+        ->firstOrFail();
+
+    return response()->json([
+        'id'        => $book->id,
+        'title'     => $book->title,
+        'cover_url' => $book->cover_path
+            ? Storage::disk('public')->url($book->cover_path)
+            : null,
+        'pages'     => $book->pages->map(fn ($p) => [
+            'id'        => $p->id,
+            'index'     => $p->index,     // urutan halaman
+            'text'      => $p->text,
+            'image_url' => $p->image_path
+                ? Storage::disk('public')->url($p->image_path)
+                : null,
+        ])->values(),
+    ]);
+}
+
 
     private function validateBook(Request $request): array {
         return $request->validate([

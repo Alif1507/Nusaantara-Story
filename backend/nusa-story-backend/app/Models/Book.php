@@ -2,14 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Book extends Model
 {
-    use HasFactory;
-    protected $fillable = ['user_id','title','subtitle','slug','cover_image_url','status','published_at'];
-    protected $casts =  ["published_at" => "datetime"];
-    public function pages() { return $this->hasMany(page::class)->orderBy("index"); }
-    public function user() { return $this->belongsTo(User::class); }
+    protected $fillable = ['title','slug','cover_image_url','cover_path','status','published_at','user_id'];
+    protected $appends  = ['cover_url'];
+
+    public function pages()
+    {
+        return $this->hasMany(Page::class)->orderBy('index');
+    }
+
+    public function getCoverUrlAttribute(): ?string
+    {
+        // dukung berbagai nama kolom yang mungkin dipakai
+        $raw = $this->attributes['cover_image_url']
+            ?? $this->attributes['cover_path']
+            ?? $this->attributes['cover']
+            ?? $this->attributes['cover_image']
+            ?? null;
+
+        if (!$raw) return null;
+        if (preg_match('~^https?://~i', $raw)) return $raw;       
+        return Storage::disk('public')->url($raw);                
+    }
 }

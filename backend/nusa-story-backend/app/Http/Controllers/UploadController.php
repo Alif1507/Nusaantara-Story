@@ -7,13 +7,12 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    public function store(Request $request)
-    {
-        $request->validate([
-            "image" => "require|image|max:5120",
-        ]);
+    public function store(Request $r){
+  $r->validate(['image' => 'required|image|max:5120']);
+  $file = $r->file('image');
+  if (!$file) return response()->json(['message'=>'No file received'], 422);
 
-        $path = $request->file("image")->store("uploads/" . ($request->user()->id ?? "guest"), "public");
-        return response()->json(["url" => Storage::url($path)]);
-    }
+  $path = $file->store('uploads/'.$r->user()->id, 'public');
+  return response()->json(['url' => Storage::url($path)], 201);
+}
 }
