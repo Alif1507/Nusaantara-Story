@@ -1,0 +1,75 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtualenv / tooling
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+.eggs/
+*.egg-info/
+pip-log.txt
+
+# Build & dist
+build/
+dist/
+*.egg
+*.whl
+
+# Test / coverage / typing
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.pytype/
+.cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Editors/IDE
+.vscode/
+.idea/
+
+# Env & secrets
+.env
+.env.*.local
+*.env
+
+# Logs
+*.log
+logs/
+uvicorn*.log
+
+# Data: commit CSV, ignore file lain di data/
+#data/*
+!data/*.csv
+!data/**/*.csv
+!data/README.md
+!data/.gitkeep
+
+# Model/Index artefak (kalau nanti pakai embeddings/serialize index)
+models/
+index/
+*.pkl
+*.joblib
+*.bin
+*.npy
+*.npz
+
+# Temp
+tmp/
+temp/
+
+# Docker overrides lokal
+docker-compose.override.yml

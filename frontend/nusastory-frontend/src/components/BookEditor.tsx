@@ -8,6 +8,7 @@ import { BooksAPI } from '../lib/books';
 const MAX_PAGES = 7;
 
 
+
 type Props = { bookId?: number };
 export default function BookEditor({ bookId }: Props){
 const [title, setTitle] = useState('Buku Cerita Baru');
