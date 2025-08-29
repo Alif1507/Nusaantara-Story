@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookPublicController;
+use App\Http\Controllers\RecoController;
 use App\Http\Controllers\UploadController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -71,7 +72,7 @@ Route::put('/books/{book}', [BookController::class,'update']);
 Route::delete('/books/{book}', [BookController::class,'destroy']);
 Route::post('/books/{book}/publish', [BookController::class,'publish']);
 });
-
+Route::post('/recommendations', [RecoController::class, 'recommend']);
 Route::get('/public/books/{slug}' , [BookPublicController::class, "showBySlug"]);
 
 

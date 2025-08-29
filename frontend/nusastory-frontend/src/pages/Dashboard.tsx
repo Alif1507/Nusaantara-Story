@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BooksAPI } from '../lib/books';
 import type { book } from '../types';
+import RecoWidget from '../components/RecoWidget';
 
 
 export default function Dashboard(){
@@ -31,6 +32,7 @@ return (
 </div>
 </div>
 ))}
+<RecoWidget />
 </div>
 </div>
 );
