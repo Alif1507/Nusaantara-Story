@@ -16,23 +16,22 @@ export default function RecoWidget({ onUse, defaultRegion }: Props) {
   const [err, setErr] = useState<string | null>(null);
 
   const search = async () => {
-    setLoading(true); setErr(null);
-    try {
-      const results = await getRecommendations(
-        q,
-        5,
-        {
-          region: region || undefined,
-          tags: tags ? tags.split(",").map(s => s.trim()).filter(Boolean) : undefined,
-        }
-      );
-      setItems(results);
-    } catch (e: any) {
-      setErr(e?.message || "Gagal mengambil rekomendasi");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true); setErr(null);
+  try {
+    const results = await getRecommendations(q, 5, {
+      region: region || undefined,
+      tags: tags ? tags.split(",").map(s => s.trim()).filter(Boolean) : undefined,
+    });
+    console.log("FE got:", results);
+    setItems(results);
+  } catch (e: any) {
+    console.error(e);
+    setErr(e?.message || "Gagal mengambil rekomendasi");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="border rounded-2xl p-4 bg-white space-y-3">

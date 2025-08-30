@@ -35,24 +35,37 @@ export default function RegisterPage() {
   };
 
   return (
-    <form onSubmit={onSubmit} style={{ maxWidth: 420, margin: "60px auto", display: "grid", gap: 10 }}>
-      <h2>Create account</h2>
+   <section className="w-screen h-screen items-center justify-center flex">
+    <div className='bg-[#D72D27] relative w-full h-full flex flex-col items-center justify-center'>
+      <img src="/img/logo.png" alt="" />
+      <div className='flex gap-10 absolute bottom-15 text-white'>
+        <a href="#">Tentang</a>
+        <a href="#">Cerita</a>
+        <a href="#">AudioBook</a>
+        <a href="#">Tambah Cerita</a>
+      </div>
+    </div>
+    <div className="bg-white w-full h-full flex items-center justify-center">
+       <form onSubmit={onSubmit} style={{ maxWidth: 420, margin: "60px auto", display: "grid", gap: 10 }}>
+      <h2 className="text-5xl font-serif font-bold text-gray-900 mb-6">Register</h2>
 
-      <input name="name" placeholder="Name" value={form.name} onChange={onChange} />
+      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="name" placeholder="Name" value={form.name} onChange={onChange} />
       {fieldErrors.name && <small style={{ color: "crimson" }}>{fieldErrors.name[0]}</small>}
 
-      <input name="email" placeholder="Email" value={form.email} onChange={onChange} />
+      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="email" placeholder="Email" value={form.email} onChange={onChange} />
       {fieldErrors.email && <small style={{ color: "crimson" }}>{fieldErrors.email[0]}</small>}
 
-      <input name="password" type="password" placeholder="Password" value={form.password} onChange={onChange} />
+      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="password" type="password" placeholder="Password" value={form.password} onChange={onChange} />
       {fieldErrors.password && <small style={{ color: "crimson" }}>{fieldErrors.password[0]}</small>}
 
-      <input name="password_confirmation" type="password" placeholder="Confirm password" value={form.password_confirmation} onChange={onChange} />
+      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="password_confirmation" type="password" placeholder="Confirm password" value={form.password_confirmation} onChange={onChange} />
 
-      <button type="submit">Register</button>
+      <button className="w-full rounded-full bg-red-600 px-5 py-2.5 text-white font-medium hover:bg-red-700 active:bg-red-800 transition mt-10" type="submit">Register</button>
       {error && <p style={{ color: "crimson" }}>{error}</p>}
 
-      <p style={{ marginTop: 8 }}>Already have an account? <Link to="/login">Sign in</Link></p>
+      <p style={{ marginTop: 8 }}>Sudah Punya Akun? <Link to="/login" className="text-[#D72D27]">login</Link></p>
     </form>
+    </div>
+   </section>
   );
 }

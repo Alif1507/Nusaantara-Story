@@ -2,22 +2,23 @@
 import os
 from dataclasses import dataclass, field
 from typing import List
+from pathlib import Path
+from dotenv import load_dotenv
+
+# load .env dari root proyek
+ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT / ".env")
 
 def _parse_origins() -> List[str]:
     raw = os.getenv("ALLOW_ORIGINS", "*").strip()
-    if not raw:
-        return ["*"]
-    # contoh: "http://localhost:5173,http://localhost:8000"
+    if not raw: return ["*"]
     parts = [p.strip() for p in raw.split(",")]
-    # jika "*" ada di mana pun, kembalikan ["*"]
     return ["*"] if any(p == "*" for p in parts) else parts
 
 @dataclass
 class Settings:
-    DATA_PATH: str = os.getenv("DATA_PATH", "./data/cerita_rakyat_indonesia.csv")
+    DATA_PATH: str = os.getenv("DATA_PATH", "./data/folklore.csv")
     ALLOW_ORIGINS: List[str] = field(default_factory=_parse_origins)
-
-    # mapping kolom CSV
     ID_COL: str = os.getenv("ID_COL", "id")
     TITLE_COL: str = os.getenv("TITLE_COL", "title")
     REGION_COL: str = os.getenv("REGION_COL", "region")

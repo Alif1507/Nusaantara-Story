@@ -1,3 +1,4 @@
+// src/auth/AuthContextToken.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "../types";
 import { loginWithToken, logoutWithToken, fetchMeWithToken, register as registerApi } from "../lib/authToken";
@@ -7,6 +8,7 @@ type RegisterInput = { name: string; email: string; password: string; password_c
 
 type Ctx = {
   user: User | null;
+  ready: boolean;                           // <-- expose 'ready'
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (input: RegisterInput) => Promise<void>;
@@ -24,9 +26,9 @@ export function AuthProviderToken({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    loadTokenFromStorage();
+    loadTokenFromStorage();                  // rehydrate token -> set header Authorization
     (async () => {
-      setUser(await fetchMeWithToken());
+      setUser(await fetchMeWithToken());     // kalau token valid -> dapet user
       setReady(true);
     })();
   }, []);
@@ -47,7 +49,7 @@ export function AuthProviderToken({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthCtx.Provider value={{ user, login, logout, register }}>
+    <AuthCtx.Provider value={{ user, ready, login, logout, register }}>
       {ready ? children : <div>Loading…</div>}
     </AuthCtx.Provider>
   );

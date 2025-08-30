@@ -1,5 +1,6 @@
 import { api } from "./apiToken";
 
+
 export type RecoItem = {
   id: string | number;
   title: string;
@@ -8,7 +9,6 @@ export type RecoItem = {
   summary: string;
   image_url?: string;
   score: number;
-  // opsional: pulau/kategori/tokoh/nilai_moral kalau engine mengirimkan
   pulau?: string;
   kategori?: string;
   tokoh?: string;
@@ -20,10 +20,15 @@ export async function getRecommendations(
   top_k = 5,
   filters?: { region?: string; tags?: string[]; kategori?: string; tokoh?: string; nilai_moral?: string }
 ) {
-  const { data } = await api.post<{ results: RecoItem[] }>("/api/recommendations", {
-    query,
-    top_k,
-    filters,
-  });
-  return data.results;
+  const { data } = await api.post("/api/recommendations", { query, top_k, filters });
+
+  // Normalisasi bentuk respons (bisa {results:[...]} atau langsung [...])
+  const results: RecoItem[] = Array.isArray((data as any)?.results)
+    ? (data as any).results
+    : Array.isArray(data)
+    ? (data as any)
+    : [];
+
+  return results;
 }
+
