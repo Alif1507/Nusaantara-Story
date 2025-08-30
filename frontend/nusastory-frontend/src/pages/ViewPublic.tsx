@@ -1,5 +1,6 @@
+import { ArrowLeft } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // ----- Config -----
 const API_URL =
@@ -133,6 +134,7 @@ export default function ViewPublic() {
 
   return (
     <div style={{ maxWidth: 960, margin: "24px auto", padding: "0 16px" }}>
+        <Link to="/dashboard" className=''><h1 className="text-2xl font-bold bg-[#D72D27] text-white p-3 rounded-xl cursor-pointer w-[130px] flex items-center gap-3"><ArrowLeft /> Back</h1></Link>
       <h1 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 16 }}>
         {book.title}
       </h1>

@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import "@fontsource/inknut-antiqua/300.css";
 import "@fontsource/poppins/500.css";
 import { Link } from "react-router-dom";
+import { useAuthToken } from "../auth/AuthContextToken";
 
 const Navbar = () => {
   useEffect(() => {
@@ -46,10 +47,13 @@ const Navbar = () => {
       }
     };
 
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  const { user, ready } = useAuthToken()
+  if (!ready) return null
+  
   return (
     <div className="navbar w-full py-2 flex justify-around items-center fixed top-0 left-0 z-50">
       <div
@@ -70,17 +74,18 @@ const Navbar = () => {
         <Link to="/about" className="nav-link text-[#A02F1F]">Tentang</Link>
         <Link to="/cerita" className="nav-link text-[#A02F1F]">Cerita</Link>
         <Link to="/audio" className="nav-link text-[#A02F1F]">AudioBook</Link>
-        <Link to="/tambahcerita" className="nav-link text-[#A02F1F]">TambahCerita</Link>
+        <Link to="/dashboard" className="nav-link text-[#A02F1F]">TambahCerita</Link>
       </div>
 
       <div>
-        <button
-          style={{ fontFamily: "Poppins, sans-serif" }}
-          className="login-btn bg-[#A02F1F] text-white h-[35px] w-[100px] rounded-lg font-md"
-        >
-          Login
-        </button>
-      </div>
+      <Link
+        to={user ? "/dashboard" : "/login"}
+        style={{ fontFamily: "Poppins, sans-serif" }}
+        className="login-btn bg-[#A02F1F] text-white h-[35px] w-[120px] rounded-lg font-medium flex items-center justify-center"
+      >
+        {user ? "Dashboard" : "Login"}
+      </Link>
+    </div>
     </div>
   );
 };

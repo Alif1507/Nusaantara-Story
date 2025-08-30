@@ -25,10 +25,10 @@ const LoginPage = () => {
     <div className='bg-[#D72D27] relative w-full h-full flex flex-col items-center justify-center'>
       <img src="/img/logo.png" alt="" />
       <div className='flex gap-10 absolute bottom-15 text-white'>
-        <a href="#">Tentang</a>
-        <a href="#">Cerita</a>
-        <a href="#">AudioBook</a>
-        <a href="#">Tambah Cerita</a>
+        <Link to="/about">Tentang</Link>
+        <Link to="/cerita">Cerita</Link>
+        <Link to="/audio">AudioBook</Link>
+        <Link to="/">Home</Link>
       </div>
     </div>
     <div className='bg-white w-full h-full flex items-center justify-center'>

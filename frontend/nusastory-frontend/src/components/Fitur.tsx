@@ -40,7 +40,7 @@ const Fitur = () => {
         </div>
         <div className='flex flex-row gap-10 justify-center items-center mt-18'>
             {fiturData.map((fitur) => (
-                <div key={fitur.id} style={{backgroundColor: fitur.color }} className='shadow-2xl w-[250px] h-[478px] rounded-xl relative hover:translate-y-10 hover:transition-all duration-300'>
+                <div key={fitur.id} style={{backgroundColor: fitur.color }} className='shadow-2xl w-[250px] h-[478px] rounded-xl relative hover:-translate-y-10 hover:transition-all duration-300'>
                     <div className='flex justify-center mt-10 items-center'>
                         <img src={fitur.image1} alt="" />
                     </div>
