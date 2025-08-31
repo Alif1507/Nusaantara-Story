@@ -14,3 +14,8 @@ export type book = {
   status: "draft" | "published";
   pages?: Page[];  
 }
+
+export type ChatMsg = {
+  role: 'user' | 'model';
+  text: string;
+};

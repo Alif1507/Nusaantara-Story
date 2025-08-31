@@ -34,36 +34,38 @@ export default function RecoWidget({ onUse, defaultRegion }: Props) {
 
 
   return (
-    <div className="border rounded-2xl p-4 bg-white space-y-3">
-      <div className="font-semibold">Rekomendasi Cerita Rakyat (AI)</div>
+    <div className="rounded-2xl p-4 bg-white space-y-3 relative">
+      <img src="/img/botBingung.png" className="absolute right-0 -top-10" alt="" />
+      <h1 className="font-bold text-xl">Baca Sesuai Moodmu</h1>
+      <h2 className="text-black">Tuliskan apa yang mau dibaca</h2>
       <input
-        className="w-full border rounded-xl px-3 py-2"
-        placeholder="Tulis prompt… (mis. legenda danau di Sumatera)"
+        className="w-full border border-[#D72D27]/70   rounded-xl px-3 py-2"
+        placeholder="Tulis apa yang ingin kamu baca hari ini....... (mis. Legenda di Jawa)"
         value={q}
         onChange={(e) => setQ(e.target.value)}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <input
-          className="border rounded-xl px-3 py-2"
+          className="border border-[#D72D27]/70  rounded-xl px-3 py-2"
           placeholder="Filter region/pulau (opsional)"
           value={region}
           onChange={(e) => setRegion(e.target.value)}
         />
         <input
-          className="border rounded-xl px-3 py-2"
+          className="border border-[#D72D27]/70  rounded-xl px-3 py-2"
           placeholder="Tags (pisah dengan koma, opsional)"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
       </div>
-      <button onClick={search} disabled={loading || !q.trim()} className="px-3 py-2 border rounded-xl">
-        {loading ? "Mencari…" : "Cari rekomendasi"}
+      <button onClick={search} disabled={loading || !q.trim()} className="px-3 py-2 text-white text-2xl font-bold bg-[#D72D27] cursor-pointer rounded-xl">
+        {loading ? "Mencari…" : "Minta Saran"}
       </button>
       {err && <div className="text-red-600 text-sm">{err}</div>}
 
       <div className="space-y-3">
         {items.map((it) => (
-          <div key={`${it.id}-${it.score}`} className="p-3 border rounded-xl">
+          <div key={`${it.id}-${it.score}`} className="p-3 border border-[#D72D27]/70  rounded-xl">
             <div className="flex items-center justify-between gap-3">
               <div className="font-semibold">{it.title}</div>
               <div className="text-xs opacity-60">score: {it.score.toFixed(4)}</div>
@@ -74,7 +76,7 @@ export default function RecoWidget({ onUse, defaultRegion }: Props) {
             {onUse && (
               <div className="mt-2">
                 <button
-                  className="px-3 py-1.5 border rounded-lg text-sm"
+                  className="px-3 py-1.5 border border-[#D72D27]/70  rounded-lg text-sm"
                   onClick={() => onUse(it.summary)}
                 >
                   Gunakan ringkasan ini

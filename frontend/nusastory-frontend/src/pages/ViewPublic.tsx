@@ -134,7 +134,8 @@ export default function ViewPublic() {
 
   return (
     <div style={{ maxWidth: 960, margin: "24px auto", padding: "0 16px" }}>
-        <Link to="/dashboard" className=''><h1 className="text-2xl font-bold bg-[#D72D27] text-white p-3 rounded-xl cursor-pointer w-[130px] flex items-center gap-3"><ArrowLeft /> Back</h1></Link>
+        <Link to="/dashboard" className=''><h1 className="text-2xl font-bold bg-[#D72D27] absolute left-10 top-10 text-white p-3 rounded-xl cursor-pointer w-[130px] flex items-center gap-3"><ArrowLeft /> Back</h1></Link>
+        <img src="/img/logo3.png" className='h-[74px] w-auto absolute top-10 right-10' alt="" />
       <h1 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 16 }}>
         {book.title}
       </h1>

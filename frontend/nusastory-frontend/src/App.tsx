@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProviderToken } from "./auth/AuthContextToken";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
-import ProjectsPage from "./pages/ProjectsPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import EditBook from "./pages/EditBook";
@@ -12,6 +11,8 @@ import Landing from "./Landing";
 import GuestRoute from "./routes/GuestRoute";
 import Cerita from "./Cerita";
 import About from "./About";
+import Recomendasi from "./pages/Recomendasi";
+import ChatStreamPage from "./pages/ChatStreamPage";
 
 export default function App() {
   return (
@@ -23,7 +24,11 @@ export default function App() {
               <LoginPage />
             </GuestRoute>
             } />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={
+             <GuestRoute>
+              <RegisterPage />
+            </GuestRoute>
+          } />
           <Route path="/" element={<Landing />} />
           <Route path="/cerita" element={<Cerita />} />
           <Route path="/about" element={<About />} />
@@ -31,6 +36,10 @@ export default function App() {
           <Route path="/dashboard" element={
             <ProtectedRoute> 
             <Dashboard/>
+          </ProtectedRoute>} />
+           <Route path="/recomendasi" element={
+            <ProtectedRoute> 
+            <Recomendasi />
           </ProtectedRoute>} />
           <Route path="/books/new" element={
             <ProtectedRoute>
@@ -41,6 +50,14 @@ export default function App() {
             <EditBook/>
           </ProtectedRoute>} />
           <Route path="/view/:slug" element={<ProtectedRoute><ViewPublic/></ProtectedRoute>} />
+          <Route
+  path="/nasa"
+  element={
+    <ProtectedRoute>
+      <ChatStreamPage />
+    </ProtectedRoute>
+  }
+/>
         </Routes>
       </BrowserRouter>
     </AuthProviderToken>

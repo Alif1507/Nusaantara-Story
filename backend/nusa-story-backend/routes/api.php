@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiChatController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookPublicController;
@@ -74,6 +75,7 @@ Route::post('/books/{book}/publish', [BookController::class,'publish']);
 });
 Route::post('/recommendations', [RecoController::class, 'recommend']);
 Route::get('/public/books/{slug}' , [BookPublicController::class, "showBySlug"]);
+Route::middleware("auth:sanctum")->post("/ai/chat/stream", [AiChatController::class, "stream"]);
 
 
 Route::get('/user', function (Request $request) {
