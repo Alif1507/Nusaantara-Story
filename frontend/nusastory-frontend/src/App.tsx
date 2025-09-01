@@ -13,6 +13,7 @@ import Cerita from "./Cerita";
 import About from "./About";
 import Recomendasi from "./pages/Recomendasi";
 import ChatStreamPage from "./pages/ChatStreamPage";
+import AudioLibraryPlayer from "./components/AudioBookPlayer";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           } />
           <Route path="/" element={<Landing />} />
           <Route path="/cerita" element={<Cerita />} />
+          <Route path="/audiobook" element={<AudioLibraryPlayer />} />
           <Route path="/about" element={<About />} />
           <Route path="/tentang" element={<About />} />
           <Route path="/dashboard" element={

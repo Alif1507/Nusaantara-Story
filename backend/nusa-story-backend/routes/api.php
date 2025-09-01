@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AiChatController;
-use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookPublicController;
 use App\Http\Controllers\RecoController;

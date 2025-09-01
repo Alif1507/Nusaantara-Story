@@ -79,32 +79,25 @@ export default function NasaChatUI() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-6" >
-      <div>
-        <Link to="/"  className='text-2xl font-bold absolute left-10 top-10 cursor-pointer w-[130px] flex items-center gap-3 '><ArrowLeft /> Back</Link>
-        <img src="/img/logo3.png" className='h-[74px] w-auto absolute top-10 right-10' alt="" />
+    <div className="min-h-screen w-full flex items-center justify-center p-6 bg-white" >
+      <div className="bg-gradient-to-r absolute top-0 w-screen h-[102px] from-[#A13020] to-[#EFA72C] flex items-center justify-between">
+        <div className="flex">
+          <Link to="/"  className='text-2xl text-white font-bold cursor-pointer w-[130px] flex items-center gap-3 ml-10'><ArrowLeft /> Back</Link>
+        </div>
+        <div className="text-center">
+              <h3 className="font-semibold text-white text-2xl leading-tight">Nasa — Asisten Cerita Rakyat</h3>
+              <p className="text-white/80 text-md">Ramah, cepat, dan ahli budaya Indonesia</p>
+            </div>
+        <img src="/img/botBingung.png" className='h-[80px] w-auto mr-10 absolute right-50' alt="" />
+        <img src="/img/botBingung.png" className='h-[80px] w-auto mr-10 -z-10' alt="" />
 
       </div>
-      {/* blobs dekoratif */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div data-blob className="absolute w-40 h-40 rounded-full blur-2xl opacity-40" style={{ top: "10%", left: "8%", background: colors.primary }} />
-        <div data-blob className="absolute w-56 h-56 rounded-full blur-2xl opacity-30" style={{ bottom: "8%", right: "10%", background: colors.amber }} />
-        <div data-blob className="absolute w-32 h-32 rounded-full blur-2xl opacity-30" style={{ bottom: "15%", left: "15%", background: colors.sand }} />
-      </div>
+      
 
-      <div ref={cardRef} className="w-full max-w-3xl relative rounded-3xl shadow-2xl  border" style={{ borderColor: "rgba(0,0,0,0.08)" }}>
+      <div ref={cardRef} className="w-full max-w-3xl relative bg-[#]">
         {/* Header */}
-        <img src="/img/botBingung.png" className="absolute h-40 w-auto z-20 right-0 -top-20" alt="" />
-        <div ref={headerRef} className="relative p-5" style={{ background: `linear-gradient(90deg, ${colors.primary}, ${colors.amber})` }}>
-          <div className="flex items-center gap-3 text-white">
-            <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center ring-1 ring-white/30">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold leading-tight">Nasa — Asisten Cerita Rakyat</h3>
-              <p className="text-white/80 text-xs">Ramah, cepat, dan ahli budaya Indonesia</p>
-            </div>
-          </div>
+        <div ref={headerRef} >
+          
         </div>
 
         {/* Body */}
@@ -113,9 +106,14 @@ export default function NasaChatUI() {
           <div ref={listRef} className="h-[55vh] overflow-y-auto px-4 py-4 space-y-3 bg-white">
             {/* greeting default saat kosong */}
             {messages.length === 0 && !streamingText && (
-              <div className="text-center text-sm text-neutral-600 py-10">
-                <p>Halo! Aku <b>Nasa</b>. Tanyakan cerita rakyat dari daerah favoritmu, atau minta aku menuliskan versi modernnya ✨</p>
-              </div>
+             <h1
+  className="inline-block text-3xl md:text-5xl font-extrabold leading-tight tracking-tight mt-50
+         bg-gradient-to-r from-[#8B2C1F] via-[#C8741A] to-[#E9A642]
+         bg-clip-text text-transparent text-center">
+  Asisten Cerita Rakyat Yang dapat<br/>
+  Membantumu kapan saja
+</h1>
+
             )}
 
             {messages.map(bubble)}
