@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@fontsource/kapakana": "^5.2.2",
+    "lucide-react": "^0.542.0"
+  }
+}

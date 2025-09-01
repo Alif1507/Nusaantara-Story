@@ -15,7 +15,7 @@ import Recomendasi from "./pages/Recomendasi";
 import ChatStreamPage from "./pages/ChatStreamPage";
 import AudioLibraryPlayer from "./components/AudioBookPlayer";
 
-export default function App() {
+function App() {
   return (
     <AuthProviderToken>
       <BrowserRouter>
@@ -65,3 +65,5 @@ export default function App() {
     </AuthProviderToken>
   );
 }
+
+export default App
