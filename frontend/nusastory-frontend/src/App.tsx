@@ -14,56 +14,90 @@ import About from "./About";
 import Recomendasi from "./pages/Recomendasi";
 import ChatStreamPage from "./pages/ChatStreamPage";
 import AudioLibraryPlayer from "./components/AudioBookPlayer";
+import Bacacerita from "./Bacacerita";
 
 function App() {
   return (
     <AuthProviderToken>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={
-            <GuestRoute>
-              <LoginPage />
-            </GuestRoute>
-            } />
-          <Route path="/register" element={
-             <GuestRoute>
-              <RegisterPage />
-            </GuestRoute>
-          } />
+          {/* Guest Routes */}
+          <Route
+            path="/login"
+            element={
+              <GuestRoute>
+                <LoginPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <GuestRoute>
+                <RegisterPage />
+              </GuestRoute>
+            }
+          />
+
+          {/* Public Routes */}
           <Route path="/" element={<Landing />} />
-          <Route path="/cerita" element={<Cerita />} />
-          <Route path="/audiobook" element={<AudioLibraryPlayer />} />
           <Route path="/about" element={<About />} />
           <Route path="/tentang" element={<About />} />
-          <Route path="/dashboard" element={
-            <ProtectedRoute> 
-            <Dashboard/>
-          </ProtectedRoute>} />
-           <Route path="/recomendasi" element={
-            <ProtectedRoute> 
-            <Recomendasi />
-          </ProtectedRoute>} />
-          <Route path="/books/new" element={
-            <ProtectedRoute>
-              <EditBook/>
-            </ProtectedRoute>
-          } />
-          <Route path="/books/:id/edit" element={<ProtectedRoute>
-            <EditBook/>
-          </ProtectedRoute>} />
-          <Route path="/view/:slug" element={<ProtectedRoute><ViewPublic/></ProtectedRoute>} />
+          <Route path="/cerita" element={<Cerita />} />
+          <Route path="/baca" element={<Bacacerita />} />
+          <Route path="/audiobook" element={<AudioLibraryPlayer />} />
+
+          {/* Protected Routes */}
           <Route
-  path="/nasa"
-  element={
-    <ProtectedRoute>
-      <ChatStreamPage />
-    </ProtectedRoute>
-  }
-/>
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/recomendasi"
+            element={
+              <ProtectedRoute>
+                <Recomendasi />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/books/new"
+            element={
+              <ProtectedRoute>
+                <EditBook />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/books/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditBook />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view/:slug"
+            element={
+              <ProtectedRoute>
+                <ViewPublic />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/nasa"
+            element={
+              <ProtectedRoute>
+                <ChatStreamPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProviderToken>
   );
 }
-
-export default App
