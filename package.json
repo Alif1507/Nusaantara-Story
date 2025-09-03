@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@fontsource-variable/kapakana": "^5.2.1",
+    "@fontsource/kapakana": "^5.2.2",
+    "axios": "^1.11.0",
+    "lucide-react": "^0.542.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  }
+}

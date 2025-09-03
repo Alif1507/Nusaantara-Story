@@ -6,31 +6,31 @@ import "swiper/swiper-bundle.css";
 const Rekomendasi = () => {
   const dataBuku = [
     {
-    id: 1,
+    id: "malin-kundang",
     title: "Malin Kundang",
     from: "Sumatera Barat",
     image: "gambar/image1.png",
 },
     {
-    id: 2,
+    id: "timun-mas",
     title: "Timun Mas",
     from: "Jawa Tengah",
     image: "gambar/image2.png",
 },
     {
-    id: 3,
+    id: "danau-toba",
     title: "Asal Muasal Danau Toba",
     from: "Sumatera Utara",
     image: "gambar/image3.png",
 },
     {
-    id: 4,
+    id: "sangkuriang",
     title: "Sangkuriang",
     from: "Jawa Barat",
     image: "gambar/image4.png",
 },
     {
-    id: 5,
+    id: "si-pitung",
     title: "Si Pitung",
     from: "Jakarta/Betawi",
     image: "gambar/image5.png",

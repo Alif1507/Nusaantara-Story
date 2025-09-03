@@ -3,33 +3,33 @@ import "@fontsource/poppins/300.css";
 import { Link } from "react-router-dom";
 
 const Caricerita = () => {
-      const dataBuku = [
+const dataBuku = [
     {
-    id: 1,
+    id: "malin-kundang",
     title: "Malin Kundang",
     from: "Sumatera Barat",
     image: "gambar/image1.png",
 },
     {
-    id: 2,
+    id: "timun-mas",
     title: "Timun Mas",
     from: "Jawa Tengah",
     image: "gambar/image2.png",
 },
     {
-    id: 3,
+    id: "danau-toba",
     title: "Asal Muasal Danau Toba",
     from: "Sumatera Utara",
     image: "gambar/image3.png",
 },
     {
-    id: 4,
+    id: "sangkuriang",
     title: "Sangkuriang",
     from: "Jawa Barat",
     image: "gambar/image4.png",
 },
     {
-    id: 5,
+    id: "si-pitung",
     title: "Si Pitung",
     from: "Jakarta/Betawi",
     image: "gambar/image5.png",
@@ -52,7 +52,7 @@ const Caricerita = () => {
                                 <img src={book.image} alt=""/>
                                 <h2 style={{ fontFamily: "Poppins, serif" }} className='text-white mt-1 text-[17px]'>{book.title}</h2>
                                 <p style={{ fontFamily: "Poppins, serif" }} className='text-white mt-1 text-[13px] font-light'>{book.from}</p>
-                                <Link to="/baca">
+                                <Link to={`/baca/${book.id}`}>
                                     <button className='bg-white rounded-md text-[#A02F1F] w-17 text-[13px] mt-1 font-medium cursor-pointer'>Baca</button>
                                 </Link>
                                 <img src="/gambar/awan-kuning.png" alt="" className='absolute left-0 bottom-0 w-23 h-21' />
