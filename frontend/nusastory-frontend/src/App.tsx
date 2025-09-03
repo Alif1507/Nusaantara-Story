@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProviderToken } from "./auth/AuthContextToken";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -15,11 +14,13 @@ import Recomendasi from "./pages/Recomendasi";
 import ChatStreamPage from "./pages/ChatStreamPage";
 import AudioLibraryPlayer from "./components/AudioBookPlayer";
 import Bacacerita from "./Bacacerita";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <AuthProviderToken>
       <BrowserRouter>
+      <ScrollToTop />
         <Routes>
           {/* Guest Routes */}
           <Route
@@ -44,7 +45,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/tentang" element={<About />} />
           <Route path="/cerita" element={<Cerita />} />
-          <Route path="/baca" element={<Bacacerita />} />
+          <Route path="/baca/:id" element={<Bacacerita />} />
           <Route path="/audiobook" element={<AudioLibraryPlayer />} />
 
           {/* Protected Routes */}
