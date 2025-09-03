@@ -1,4 +1,3 @@
-import React from 'react'
 import "@fontsource/poppins/500.css";
 
 const Herobaca = () => {

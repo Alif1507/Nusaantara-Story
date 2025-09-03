@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Send, Sparkles, Loader2, ArrowLeft } from "lucide-react";
+import { Send, Loader2, ArrowLeft } from "lucide-react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import ReactMarkdown from "react-markdown";

@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProviderToken } from "./auth/AuthContextToken";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -10,11 +9,11 @@ import ViewPublic from "./pages/ViewPublic";
 import Landing from "./Landing";
 import GuestRoute from "./routes/GuestRoute";
 import Cerita from "./Cerita";
-import About from "./About";
 import Recomendasi from "./pages/Recomendasi";
 import ChatStreamPage from "./pages/ChatStreamPage";
 import AudioLibraryPlayer from "./components/AudioBookPlayer";
 import Bacacerita from "./Bacacerita";
+import About from "./About";
 
 function App() {
   return (

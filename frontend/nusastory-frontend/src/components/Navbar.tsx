@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import "@fontsource/inknut-antiqua/300.css";
 import "@fontsource/poppins/500.css";

@@ -1,8 +1,7 @@
-import React from 'react'
 import "@fontsource/poppins/300.css";
 import "@fontsource/inknut-antiqua/300.css";
 import { FaFacebook, FaInstagram, FaYoutube, FaTwitter } from "react-icons/fa";
-import { FaChevronRight, FaChevronDown } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 

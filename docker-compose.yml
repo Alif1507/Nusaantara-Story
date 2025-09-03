@@ -1,0 +1,84 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: ns_db
+    environment:
+      MYSQL_DATABASE: nusantara_story
+      MYSQL_USER: maw
+      MYSQL_PASSWORD: mawkeren
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-prootpass"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  python:
+    build:
+      context: ./python_service
+      dockerfile: Dockerfile
+    container_name: ns_python
+    env_file:
+      - ./python_service/.env
+    volumes:
+      - ./python_service/data:/app/data:ro   # mount CSV biar gampang update
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+
+  php:
+    build:
+      context: ./backend/nusa-story-backend
+    container_name: ns_php
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      FRONTEND_URL: http://localhost:5173
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: nusantara_story
+      DB_USERNAME: maw
+      DB_PASSWORD: mawkeren
+      FILESYSTEM_DISK: public
+      RECO_SERVICE_URL: http://python:8081
+      APP_KEY: base64:6AUSY7I4omNhcxC3Jh8QYXnv5Q2IXZA5QfQeWoc9Yr8=  # pakai punyamu
+    volumes:
+      - ./backend/nusa-story-backend:/var/www
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: ns_web
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend/nusa-story-backend:/var/www
+      - ./nginx/laravel.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend/nusastory-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_BACKEND_ORIGIN: http://localhost:8000
+    container_name: ns_frontend
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:

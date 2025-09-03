@@ -1,7 +1,7 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, VolumeX, Loader2, ListMusic } from "lucide-react";
+/* eslint-disable no-empty */
+import React, { useEffect, useRef, useState } from "react";
+import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { api } from "../lib/apiToken"; // axios instance with Authorization (optional)
-import Navbar from "./Navbar";
 import { useAuthToken } from "../auth/AuthContextToken";
 import { Link } from "react-router-dom";
 
@@ -37,7 +37,6 @@ const fmt = (s: number) => {
 export default function AudioLibraryPlayer() {
   const [items, setItems] = useState<AudiobookItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState<string | null>(null);
 
   // player states
   const [idx, setIdx] = useState<number>(0);
@@ -51,7 +50,6 @@ export default function AudioLibraryPlayer() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
-  const progressRef = useRef<HTMLDivElement | null>(null);
   const [siap, setSiap] = useState(false);
 
 
@@ -150,7 +148,6 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
   seek(dur * pct);
 };
 
-  const prev = () => setIdx((i) => (i - 1 + items.length) % items.length);
   const next = () => {
     if (shuffle) {
       setIdx((i) => {
@@ -214,42 +211,49 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
     </nav>
       <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6 mt-32">
         {/* Library */}
-        <div className="lg:col-span-1 rounded-3xl shadow-2xl border bg-white overflow-hidden" style={{ borderColor: "rgba(0,0,0,0.08)" }}>
-          <div className="px-5 py-4" style={{ background: brand.milk }}>
-            <div className="flex items-center gap-2" style={{ color: brand.red }}>
-              <ListMusic className="w-5 h-5" />
-              <h3 className="font-semibold">Koleksi Audiobook</h3>
-            </div>
-            <p className="text-[13px] text-neutral-600">Pilih judul untuk diputar</p>
-          </div>
-          <div ref={listRef} className="h-[70vh] overflow-y-auto divide-y" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-            {loading ? (
-              <div className="p-4 flex items-center gap-2 text-neutral-600"><Loader2 className="w-4 h-4 animate-spin"/> Memuat...</div>
-            ) : err ? (
-              <div className="p-4 text-red-600 text-sm">{err}</div>
-            ) : items.length === 0 ? (
-              <div className="p-4 text-neutral-600 text-sm">Belum ada audiobook.</div>
-            ) : (
-              items.map((it, i) => (
-                <button
-                  key={it.id}
-                  data-i={i}
-                  onClick={() => setIdx(i)}
-                  className={`w-full text-left p-3 flex items-center gap-3 hover:bg-neutral-50 transition ${i===idx?"bg-[#FFF7E6]":""}`}
-                >
-                  <div className="w-12 h-12 rounded-xl overflow-hidden bg-neutral-200 flex-shrink-0">
-                    {it.coverUrl ? <img src={it.coverUrl} alt={it.title} className="w-full h-full object-cover"/> : null}
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-neutral-900">{it.title}</div>
-                    <div className="text-[12px] text-neutral-500">{it.author || "Anonim"}</div>
-                  </div>
-                  <div className="text-[12px] text-neutral-500">{fmt(it.durationSec ?? 0)}</div>
-                </button>
-              ))
-            )}
-          </div>
+       <div
+  ref={listRef}
+  className="h-[70vh] overflow-y-auto divide-y"
+  style={{ borderColor: "rgba(0,0,0,0.06)" }}
+>
+  {loading ? (
+    <div className="p-4 flex items-center gap-2 text-neutral-600">
+      <Loader2 className="w-4 h-4 animate-spin" /> Memuat...
+    </div>
+  ) : items.length === 0 ? (
+    <div className="p-4 text-neutral-600 text-sm">Belum ada audiobook.</div>
+  ) : (
+    items.map((it, i) => (
+      <button
+        key={it.id}
+        data-i={i}
+        onClick={() => setIdx(i)}
+        className={`w-full text-left p-3 flex items-center gap-3 hover:bg-neutral-50 transition ${
+          i === idx ? "bg-[#FFF7E6]" : ""
+        }`}
+      >
+        <div className="w-12 h-12 rounded-xl overflow-hidden bg-neutral-200 flex-shrink-0">
+          {it.coverUrl ? (
+            <img
+              src={it.coverUrl}
+              alt={it.title || "Cover"}
+              className="w-full h-full object-cover"
+            />
+          ) : null}
         </div>
+        <div className="flex-1">
+          <div className="text-sm font-medium text-neutral-900">
+            {it.title || "(Tanpa judul)"}
+          </div>
+          <div className="text-[12px] text-neutral-500">{it.author || "Anonim"}</div>
+        </div>
+        <div className="text-[12px] text-neutral-500">
+          {fmt(it.durationSec ?? 0)}
+        </div>
+      </button>
+    ))
+  )}
+</div>
 
         {/* Player */}
         <div className="lg:col-span-2 rounded-3xl shadow-2xl border bg-white overflow-hidden" style={{ borderColor: "rgba(0,0,0,0.08)" }}>

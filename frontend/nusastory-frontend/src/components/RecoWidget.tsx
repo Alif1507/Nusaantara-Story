@@ -1,5 +1,5 @@
 // src/components/RecoWidget.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { getRecommendations, type RecoItem } from "../lib/reco";
 
 type Props = {

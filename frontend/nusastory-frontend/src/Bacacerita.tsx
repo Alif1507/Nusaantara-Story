@@ -1,4 +1,3 @@
-import React from 'react'
 import "@fontsource/poppins/500.css";
 import Herobaca from './components/Herobaca';
 import "@fontsource/inknut-antiqua/300.css";
