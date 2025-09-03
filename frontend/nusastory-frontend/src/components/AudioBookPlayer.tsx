@@ -1,10 +1,10 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, VolumeX, Loader2, ListMusic } from "lucide-react";
 import { api } from "../lib/apiToken"; // axios instance with Authorization (optional)
+import Navbar from "./Navbar";
+import { useAuthToken } from "../auth/AuthContextToken";
+import { Link } from "react-router-dom";
 
-gsap.registerPlugin(ScrollToPlugin);
 
 // ===== Types =====
 export type AudiobookItem = {
@@ -52,7 +52,7 @@ export default function AudioLibraryPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
-  const [ready, setReady] = useState(false);
+  const [siap, setSiap] = useState(false);
 
 
 
@@ -101,7 +101,7 @@ export default function AudioLibraryPlayer() {
   let raf = 0;
   const onLoaded = () => {
     setDuration(a.duration || 0);
-    setReady(isFinite(a.duration) && a.duration > 0);
+    setSiap(isFinite(a.duration) && a.duration > 0);
   };
   const onPlay = () => setPlaying(true);
   const onPause = () => setPlaying(false);
@@ -125,23 +125,7 @@ export default function AudioLibraryPlayer() {
 
 
 
-  // autoscroll highlight in list
-  useEffect(() => {
-    if (!listRef.current) return;
-    const el = listRef.current.querySelector(`[data-i="${idx}"]`) as HTMLElement | null;
-    if (!el) return;
-    const top = el.offsetTop - (listRef.current.clientHeight/2) + (el.clientHeight/2);
-    gsap.to(listRef.current, { duration: 0.5, scrollTo: { y: top, autoKill: true }, ease: "power2.out" });
-  }, [idx]);
 
-  // animation in
-  const pageRef = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(pageRef.current, { opacity: 0, y: 16, duration: 0.6, ease: "power3.out" });
-    });
-    return () => ctx.revert();
-  }, []);
   
 
   // controls
@@ -190,10 +174,45 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
   };
 
   const current = items[idx];
+  const { user, ready } = useAuthToken()
+  
+  if (!ready) return null
 
   return (
-    <div ref={pageRef} className="min-h-screen w-full p-6" style={{ background: `linear-gradient(150deg, ${brand.sand}, ${brand.amber})` }}>
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
+    <div className="min-h-screen w-full p-6">
+      <nav className="navbar w-full py-2 flex justify-around items-center fixed top-0 left-0 z-50 bg-[#FCFCF2]">
+      <div
+        onClick={() => (window.location.href = "/")}
+        style={{ fontFamily: "Inknut Antiqua, serif",}}
+        className="flex items-end cursor-pointer"
+      >
+        <img src="/gambar/Logo.png" alt="logo" />
+        <p className="logo-text text-[13px] text-[#825D00] mb-2">
+          Nusantara<br />Story
+        </p>
+      </div>
+
+      <div
+        style={{ fontFamily: "Inknut Antiqua, serif" }}
+        className="flex gap-10 text-md"
+      >
+        <Link to="/about" className="nav-link text-[#A02F1F]">Tentang</Link>
+        <Link to="/cerita" className="nav-link text-[#A02F1F]">Cerita</Link>
+        <Link to="/audiobook" className="nav-link text-[#A02F1F]">AudioBook</Link>
+        <Link to="/dashboard" className="nav-link text-[#A02F1F]">TambahCerita</Link>
+      </div>
+
+      <div>
+      <Link
+        to={user ? "/dashboard" : "/login"}
+        style={{ fontFamily: "Poppins, sans-serif" }}
+        className="login-btn bg-[#A02F1F] text-white h-[35px] w-[120px] rounded-lg font-medium flex items-center justify-center"
+      >
+        {user ? "Dashboard" : "Login"}
+      </Link>
+    </div>
+    </nav>
+      <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6 mt-32">
         {/* Library */}
         <div className="lg:col-span-1 rounded-3xl shadow-2xl border bg-white overflow-hidden" style={{ borderColor: "rgba(0,0,0,0.08)" }}>
           <div className="px-5 py-4" style={{ background: brand.milk }}>
@@ -276,9 +295,9 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
                <div
   onClick={onScrub}
   className="h-2 rounded-full"
-  style={{ background: "#eee", cursor: ready ? "pointer" : "not-allowed", pointerEvents: ready ? "auto" : "none" }}
+  style={{ background: "#eee", cursor: siap ? "pointer" : "not-allowed", pointerEvents: siap ? "auto" : "none" }}
 >
-  <div style={{ width: `${ready ? (currentTime / audioRef.current!.duration) * 100 : 0}%`, height: "100%", background: "#A02F1F" }} />
+  <div style={{ width: `${siap ? (currentTime / audioRef.current!.duration) * 100 : 0}%`, height: "100%", background: "#A02F1F" }} />
 </div>
               </div>
 
@@ -301,17 +320,17 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
 const sampleItems: AudiobookItem[] = [
   {
     id: 1,
-    title: "Legenda Nyi Roro Kidul",
+    title: "Keong Mas",
     author: "Dongeng Kita",
-    coverUrl: "/covers/nyi-roro-kidul.jpg",
-    audioUrl: "/audio/nyi-roro-kidul.mp3",
+    coverUrl: "/covers/keong_mas.png",
+    audioUrl: "/audio/keong_mas.mp3",
   },
 
   {
     id: 2,
     title: "Malin Kundang",
     author: "Studycle Kids",
-    coverUrl: "/covers/nyi-roro-kidul.jpg",
+    coverUrl: "/covers/malin_kundang.png",
     audioUrl: "/audio/malin_kundang.mp3",
   },
 
@@ -319,7 +338,7 @@ const sampleItems: AudiobookItem[] = [
     id: 3,
     title: "Roro Jonggran",
     author: "Dongeng Kita",
-    coverUrl: "/covers/nyi-roro-kidul.jpg",
+    coverUrl: "/covers/roro_jonggran.png",
     audioUrl: "/audio/roro_jonggran.mp3",
   },
 
@@ -327,7 +346,7 @@ const sampleItems: AudiobookItem[] = [
     id: 4,
     title: "Cindelaras",
     author: "Dongeng Kita",
-    coverUrl: "/covers/nyi-roro-kidul.jpg",
+    coverUrl: "/covers/cindelaras.png",
     audioUrl: "/audio/cindelaras.mp3",
   },
  

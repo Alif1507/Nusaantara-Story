@@ -41,7 +41,7 @@ export default function RegisterPage() {
       <div className='flex gap-10 absolute bottom-15 text-white'>
         <Link to="/about">Tentang</Link>
         <Link to="/cerita">Cerita</Link>
-        <Link to="/audio">AudioBook</Link>
+        <Link to="/audiobook">AudioBook</Link>
         <Link to="/">Home</Link>
       </div>
     </div>

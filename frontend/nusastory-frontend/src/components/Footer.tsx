@@ -13,8 +13,8 @@ const Footer = () => {
             <img className='absolute bottom-0 w-full z-40' src="/gambar/batik-footer.png" alt="" />
             <div className="absolute z-40 bottom-0 left-0 w-full h-[170px]  bg-gradient-to-b from-[#A02F1F]/0 via-[#A02F1F]/100 to-[#A02F1F]"></div>
         <div className='flex justify-center'>
-            <div className='bg-white z-40 rounded-2xl w-[1000px]     py-12 shadow-[0_4px_6px_0_rgba(0,0,0,0.1),0_-4px_6px_0_rgba(0,0,0,0.1)]'>
-                <div className='flex mx-20 justify-between'>
+            <div className='bg-white z-40 rounded-2xl w-[1000px] py-12 shadow-[0_4px_6px_0_rgba(0,0,0,0.1),0_-4px_6px_0_rgba(0,0,0,0.1)]'>
+                <div className='flex mx-20 justify-between '>
                     {/* Footer Left */}
                     <div className='max-w-100'>
                         <div className='flex items-end'>

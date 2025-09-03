@@ -38,10 +38,12 @@ const Caricerita = () => {
   return (
     <div className='mt-40'>
         <div className="flex justify-center items-center ">
-            <div className='bg-[#A02F1F] flex justify-center items-center w-[350px] h-[50px] rounded-xl shadow-xl gap-4 cursor-pointer'>
+           <Link to="/recomendasi">
+             <div className='bg-[#A02F1F] flex justify-center items-center w-[350px] h-[50px] rounded-xl shadow-xl gap-4 cursor-pointer'>
                 <h1 style={{ fontFamily: "Poppins, serif" }} className="text-white text-lg">Cari Rekomendasi Cerita</h1>
                 <Search className="w-6 h-6 text-white" />
             </div>
+           </Link>
         </div>
                 <div className='flex justify-center items-center'>
                     <div className='grid grid-cols-2 gap-10 mt-20 mb-20'>
