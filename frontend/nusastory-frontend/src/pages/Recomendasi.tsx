@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 27ee84886fbdcfd9349b680045e7488ec3114af1
 import RecoWidget from '../components/RecoWidget'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'

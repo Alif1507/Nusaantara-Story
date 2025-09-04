@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-// src/components/RecoWidget.tsx
-import { useState } from "react";
-import { getRecommendations, type RecoItem } from "../lib/reco";
->>>>>>> 27ee84886fbdcfd9349b680045e7488ec3114af1
-
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Image as ImageIcon, Type as TypeIcon, ChevronLeft, ChevronRight, Upload, Save, AlertTriangle } from 'lucide-react';
