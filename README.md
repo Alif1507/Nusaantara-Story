@@ -1,6 +1,3 @@
-# Create README.md with detailed instructions for running without Docker
-content = """# NusaStory — Laravel API + React TS + FastAPI (tanpa Docker)
-
 Aplikasi web untuk membuat dan membaca buku cerita rakyat, lengkap dengan editor drag-and-drop (teks & gambar), cover, serta rekomendasi cerita berbasis prompt (AI) dari dataset CSV.
 
 ## ✨ Stack
