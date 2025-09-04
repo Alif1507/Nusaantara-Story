@@ -110,13 +110,13 @@ def _make_corpus(df: pd.DataFrame) -> List[str]:
 # ===== Index lifecycle =====
 def load_index() -> None:
     global _df, meta, Xw, Xc, Vw, Vc
-
     try:
-        df = _read_csv_resilient("./data/cerita_rakyat_indonesia.csv").fillna("")
-    except FileNotFoundError:
-        raise FileNotFoundError(f"CSV not found: {"./data/cerita_rakyat_indonesia.csv"}")
+        df = _read_csv_resilient(settings.DATA_PATH).fillna("")
+    except FileNotFoundError as e:
+        # ✅ benar: pakai settings.DATA_PATH
+        raise FileNotFoundError(f"CSV not found: {settings.DATA_PATH}") from e
     except (EmptyDataError, ParserError) as e:
-        raise ValueError(f"CSV parse error: {e}")
+        raise ValueError(f"CSV parse error: {e}") from e
 
     _validate_required_columns(df)
     _build_effective_tags(df)

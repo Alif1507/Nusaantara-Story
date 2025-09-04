@@ -1,4 +1,4 @@
-import type { book, Page } from "../types"
+import type { Page } from "../types"
 import { api } from "./apiToken";
 
 export type BooksInput = {
@@ -25,54 +25,34 @@ export type PublicBook = {
 
 export const BooksAPI = {
   async list() {
-    const { data } = await api.get<Paginated<book>>(`/api/books`);
-    return data;
+    const { data } = await api.get('/books');
+    return data; // bisa {data:[]} atau array (Dashboard sudah handle)
   },
-
   async get(id: number) {
-    const { data } = await api.post<book>(`/api/books/${id}`)
+    const { data } = await api.get(`/books/${id}`);
     return data;
   },
-
-  async create(payload: BooksInput) {
-    const { data } = await api.post<{id: string}>(`/api/books/`, payload);
+  async create(dto: any) {
+    const { data } = await api.post('/books', dto);
     return data;
   },
-
-  async update(id: number | string, payload : BooksInput) {
-    const { data } = await api.put<{id: string}>(`/api/books/${id}`, payload)
+  async update(id: number, dto: any) {
+    const { data } = await api.put(`/books/${id}`, dto);
     return data;
   },
-
-  async remove(id: number | string) {
-    await api.delete<void>(`/api/books/${id}`)
+  async remove(id: number) {
+    await api.delete(`/books/${id}`);
   },
-
-  async publish (id: number | string) {
-    await api.post<void>(`/api/books/${id}/publish`);
+  async publish(id: number) {
+    const { data } = await api.post(`/books/${id}/publish`);
+    return data;
   },
-
   async uploadImage(file: File) {
-  const fd = new FormData();
-  fd.append("image", file);
-
-
-  const { data } = await api.post<{ url: string }>(
-    "/api/uploads/images",
-    fd
-  );
-  return data;
-},
-
-  async publicBySlug(slug: string): Promise<PublicBook> {
-  const res = await fetch(`http://localhost:8000/api/public/books/${slug}`, {
-    headers: { Accept: 'application/json' },
-  });
-  if (!res.ok) throw new Error(`API ${res.status}`);
-  const json = await res.json();
-  return json.data; // ← PENTING: Resource Laravel dibungkus "data"
-}
-
+    const fd = new FormData();
+    fd.append('image', file); // samakan dengan key di controller Laravel
+    const { data } = await api.post('/uploads/images', fd); // JANGAN set Content-Type manual
+    return data; // { url: string }
+  },
+};
   
 
-}

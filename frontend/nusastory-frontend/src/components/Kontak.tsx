@@ -1,4 +1,3 @@
-import React from 'react'
 import "@fontsource/poppins/300.css";
 
 const Kontak = () => {

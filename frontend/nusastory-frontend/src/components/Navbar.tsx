@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import "@fontsource/inknut-antiqua/300.css";
 import "@fontsource/poppins/500.css";
@@ -55,7 +55,7 @@ const Navbar = () => {
   if (!ready) return null
   
   return (
-    <div className="navbar w-full py-2 flex justify-around items-center fixed top-0 left-0 z-50">
+    <div className="navbar w-full py-2 flex justify-around items-center fixed top-0 left-0 z-100">
       <div
         onClick={() => (window.location.href = "/")}
         style={{ fontFamily: "Inknut Antiqua, serif",}}
@@ -73,7 +73,7 @@ const Navbar = () => {
       >
         <Link to="/about" className="nav-link text-[#A02F1F]">Tentang</Link>
         <Link to="/cerita" className="nav-link text-[#A02F1F]">Cerita</Link>
-        <Link to="/audio" className="nav-link text-[#A02F1F]">AudioBook</Link>
+        <Link to="/audiobook" className="nav-link text-[#A02F1F]">AudioBook</Link>
         <Link to="/dashboard" className="nav-link text-[#A02F1F]">TambahCerita</Link>
       </div>
 

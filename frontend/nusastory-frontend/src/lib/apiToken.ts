@@ -2,27 +2,21 @@
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_ORIGIN ?? "http://localhost:8000",
-  headers: { Accept: "application/json" },
+  baseURL: `/api`,             // RELATIF (tanpa host)
+  headers: { Accept: 'application/json' }
 });
 
-export const TOKEN_KEY = "auth_token";
-
+let token: string | null = null;
 export function setAuthToken(next?: string | null) {
-  if (next) {
-    sessionStorage.setItem(TOKEN_KEY, next);
-    api.defaults.headers.common.Authorization = `Bearer ${next}`;
-  } else {
-    sessionStorage.removeItem(TOKEN_KEY);
-    delete api.defaults.headers.common.Authorization;
-  }
+  token = next ?? null;
+  if (token) api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  else delete api.defaults.headers.common.Authorization;
 }
-
 export function loadTokenFromStorage() {
-  const t = sessionStorage.getItem(TOKEN_KEY);
-  if (t) api.defaults.headers.common.Authorization = `Bearer ${t}`;
-  return t;
+  const t = sessionStorage.getItem("auth_token");
+  if (t) setAuthToken(t);
 }
+loadTokenFromStorage();
 
 // Request interceptor: pastikan Content-Type benar
 api.interceptors.request.use((config) => {
@@ -44,8 +38,6 @@ api.interceptors.response.use(
   }
 );
 
-// auto-load token saat file ini di-import
-loadTokenFromStorage();
 
 export function persistToken(next?: string | null) {
   if (next) sessionStorage.setItem("auth_token", next);

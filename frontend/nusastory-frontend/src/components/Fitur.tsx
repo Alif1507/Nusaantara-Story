@@ -1,6 +1,6 @@
-import React from 'react'
 import "@fontsource/inknut-antiqua/300.css";
 import "@fontsource/poppins/300.css";
+import { Link } from 'react-router-dom';
 
 const Fitur = () => {
     const fiturData = [
@@ -12,6 +12,7 @@ const Fitur = () => {
             button: "Baca",
             image2: "gambar/fitur-bawah1.png",
             color: "#D72D27",
+            link: "/cerita"
         },
         {
             id: 2,
@@ -21,6 +22,7 @@ const Fitur = () => {
             button: "Dengarkan",
             image2: "gambar/fitur-bawah2.png",
             color: "#A02F1F",
+            link: "/audiobook"
         },
         {
             id: 3,
@@ -30,6 +32,7 @@ const Fitur = () => {
             button: "Buat",
             image2: "gambar/fitur-bawah3.png",
             color: "#D72D27",
+            link: "/dashboard"
         },
     ];
 
@@ -53,7 +56,9 @@ const Fitur = () => {
                             <p style={{ fontFamily: "Poppins, serif" }} className='text-[12px] text-white mt-3 text-left '>{fitur.description}</p>
                         </div>
                         <div className='bg-white mt-5 h-[1px]'></div>
-                        <button style={{ fontFamily: "Poppins, serif" }} className='border border-white mt-5 text-sm text-white w-[100px] h-[30px] text-center rounded-lg'>{fitur.button}</button>
+                        <Link to={fitur.link}>
+                            <button style={{ fontFamily: "Poppins, serif" }} className='border border-white mt-5 text-sm text-white w-[100px] h-[30px] text-center rounded-lg cursor-pointer'>{fitur.button}</button>
+                        </Link>
                     </div>
                     <img className='absolute bottom-0 right-0' src={fitur.image2} alt="" />
                 </div>

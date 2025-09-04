@@ -1,4 +1,3 @@
-import React from 'react'
 import Navbar from './components/Navbar'
 import Heroabout from './components/Heroabout'
 import Visimisi from './components/Visimisi'
