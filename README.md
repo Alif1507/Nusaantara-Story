@@ -42,7 +42,7 @@ Install dulu (sekali saja):
 
 ### 1) Clone repo
 bash:
-- git clone https://github.com/Alif1507/Nusantara-Story.git.git nusastory
+- git clone https://github.com/Alif1507/Nusantara-Story.git nusastory
 - cd nusastory
 
 ### 2) Backend (Laravel) — port 8000
@@ -62,26 +62,28 @@ FLUSH PRIVILEGES;
 
 # Migrasi & publikasi storage
 
-php artisan migrate
-php artisan storage:link
-php artisan config:clear
-php artisan serve --host=127.0.0.1 --port=8000
+- php artisan migrate
+- php artisan storage:link
+- php artisan config:clear
+- php artisan serve --host=127.0.0.1 --port=8000
 
 
 ### 3) Python Service (FastAPI) — port 8081
 
-cd ../python_service
-python -m venv .venv
-#Windows: .venv\\Scripts\\activate
-source .venv/bin/activate
-pip install -r requirements.txt
+- cd ./python_service
+- python -m venv .venv
+- #Windows: .venv\\Scripts\\activate
+- source .venv/bin/activate
+- pip install -r requirements.txt
 
 # Jalankan FastAPI
 
-uvicorn app.main:app --host 0.0.0.0 --port 8081 --reload
-
+- uvicorn app.main:app --host 0.0.0.0 --port 8081 --reload
+ 
 ### 4) Frontend (React + TS + Vite) — port 5173
 
-cd ./frontend/nusastory-frontend
-npm install
-npm run dev
+- cd ./frontend/nusastory-frontend
+- npm install
+- npm run dev
+
+#### Buka dibrowers http://localhost:5173
