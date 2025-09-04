@@ -35,37 +35,124 @@ export default function RegisterPage() {
   };
 
   return (
-   <section className="w-screen h-screen items-center justify-center flex">
-    <div className='bg-[#D72D27] relative w-full h-full flex flex-col items-center justify-center'>
-      <img src="/img/logo.png" alt="" />
-      <div className='flex gap-10 absolute bottom-15 text-white'>
-        <Link to="/about">Tentang</Link>
-        <Link to="/cerita">Cerita</Link>
-        <Link to="/audiobook">AudioBook</Link>
-        <Link to="/">Home</Link>
+   <section className="min-h-screen grid grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-2">
+      {/* Left / Hero */}
+      <div className="bg-[#D72D27] relative flex items-center justify-center p-6 md:p-10">
+        <img
+          src="/img/logo.png"
+          alt="Logo"
+          className="w-28 sm:w-36 md:w-44 lg:w-52 select-none"
+          draggable={false}
+        />
+
+        {/* Bottom nav */}
+        <nav className="absolute inset-x-0 bottom-4 md:bottom-8 text-white">
+          <ul className="mx-auto flex justify-center gap-6 md:gap-10 text-sm md:text-base">
+            <li>
+              <Link className="hover:underline" to="/about">Tentang</Link>
+            </li>
+            <li>
+              <Link className="hover:underline" to="/cerita">Cerita</Link>
+            </li>
+            <li>
+              <Link className="hover:underline" to="/audiobook">Audiobook</Link>
+            </li>
+            <li>
+              <Link className="hover:underline" to="/">Home</Link>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <div className="bg-white w-full h-full flex items-center justify-center">
-       <form onSubmit={onSubmit} style={{ maxWidth: 420, margin: "60px auto", display: "grid", gap: 10 }}>
-      <h2 className="text-5xl font-serif font-bold text-gray-900 mb-6">Register</h2>
 
-      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="name" placeholder="Name" value={form.name} onChange={onChange} />
-      {fieldErrors.name && <small style={{ color: "crimson" }}>{fieldErrors.name[0]}</small>}
+      {/* Right / Form */}
+      <div className="bg-white flex items-center justify-center p-4 sm:p-8">
+        <form
+          onSubmit={onSubmit}
+          className="w-full max-w-sm sm:max-w-md grid gap-3 sm:gap-4"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-2 sm:mb-4">
+            Register
+          </h2>
 
-      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="email" placeholder="Email" value={form.email} onChange={onChange} />
-      {fieldErrors.email && <small style={{ color: "crimson" }}>{fieldErrors.email[0]}</small>}
+          {/* Name */}
+          <label htmlFor="name" className="sr-only">Name</label>
+          <input
+            id="name"
+            name="name"
+            placeholder="Name"
+            value={form.name}
+            onChange={onChange}
+            autoComplete="name"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+          />
+          {fieldErrors.name && (
+            <small className="text-red-600">{fieldErrors.name[0]}</small>
+          )}
 
-      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="password" type="password" placeholder="Password" value={form.password} onChange={onChange} />
-      {fieldErrors.password && <small style={{ color: "crimson" }}>{fieldErrors.password[0]}</small>}
+          {/* Email */}
+          <label htmlFor="email" className="sr-only">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={onChange}
+            autoComplete="email"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+          />
+          {fieldErrors.email && (
+            <small className="text-red-600">{fieldErrors.email[0]}</small>
+          )}
 
-      <input className="w-full rounded-md border border-white border-b-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900" name="password_confirmation" type="password" placeholder="Confirm password" value={form.password_confirmation} onChange={onChange} />
+          {/* Password */}
+          <label htmlFor="password" className="sr-only">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={onChange}
+            autoComplete="new-password"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+          />
+          {fieldErrors.password && (
+            <small className="text-red-600">{fieldErrors.password[0]}</small>
+          )}
 
-      <button className="w-full rounded-full bg-red-600 px-5 py-2.5 text-white font-medium hover:bg-red-700 active:bg-red-800 transition mt-10" type="submit">Register</button>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+          {/* Confirm */}
+          <label htmlFor="password_confirmation" className="sr-only">
+            Confirm password
+          </label>
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password"
+            placeholder="Confirm password"
+            value={form.password_confirmation}
+            onChange={onChange}
+            autoComplete="new-password"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+          />
 
-      <p style={{ marginTop: 8 }}>Sudah Punya Akun? <Link to="/login" className="text-[#D72D27]">login</Link></p>
-    </form>
-    </div>
-   </section>
+          <button
+            type="submit"
+            className="w-full rounded-full bg-[#D72D27] px-5 py-2.5 sm:py-3 text-white font-medium hover:opacity-90 active:opacity-80 transition mt-6 sm:mt-8"
+          >
+            Register
+          </button>
+
+          {error && <p className="text-red-600">{error}</p>}
+
+          <p className="mt-2 text-sm sm:text-base">
+            Sudah punya akun?{" "}
+            <Link to="/login" className="text-[#D72D27] hover:underline">
+              Login
+            </Link>
+          </p>
+        </form>
+      </div>
+    </section>
   );
 }
