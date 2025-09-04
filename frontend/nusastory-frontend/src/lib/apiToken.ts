@@ -2,10 +2,12 @@
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
-  baseURL: `/api`,             // RELATIF (tanpa host)
-  headers: { Accept: 'application/json' }
+  baseURL: import.meta.env.VITE_API_BASE, // -> http://localhost:8000/api
+  headers: { Accept: "application/json" },
+  withCredentials: false,                 // pakai Bearer token, bukan cookie
 });
 
+// token helper (opsional)
 let token: string | null = null;
 export function setAuthToken(next?: string | null) {
   token = next ?? null;

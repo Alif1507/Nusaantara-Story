@@ -4,7 +4,6 @@ import { Plus, Trash2, Image as ImageIcon, Type as TypeIcon, ChevronLeft, Chevro
 
 import type { Page } from '../types';
 import { BooksAPI } from '../lib/books';
-
 const MAX_PAGES = 7;
 
 type Props = { bookId?: number };
@@ -78,19 +77,32 @@ export default function BookEditor({ bookId }: Props) {
   };
 
   const onCoverInput: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
-    setErr(null);
-    const f = e.target.files?.[0];
-    if (!f) return;
-    try {
-      const { url } = await BooksAPI.uploadImage(f);
-      setCoverUrl(url);
-    } catch (ex: any) {
-      setErr(ex?.response?.data?.message || ex?.message || 'Upload cover gagal.');
-    } finally {
-      // reset value supaya bisa upload file sama dua kali
-      e.currentTarget.value = '';
-    }
-  };
+  const input = e.currentTarget;                          // <-- simpan DOM input
+  const f = input.files?.[0];
+  if (!f) return;
+  try {
+    const { url } = await BooksAPI.uploadImage(f);
+    setCoverUrl(url /* atau normalizeImageUrl(url) */);
+  } catch (err) {
+    console.error('upload cover failed', err);
+  } finally {
+    input.value = '';                                     // <-- clear aman
+  }
+};
+
+const onPageImageInput: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const input = e.currentTarget;
+  const f = input.files?.[0];
+  if (!f) return;
+  try {
+    const { url } = await BooksAPI.uploadImage(f);
+    setPages(ps => ps.map((p,i)=> i===current? {...p, imageUrl:url}:p));
+  } catch (err) {
+    console.error('upload page image failed', err);
+  } finally {
+    input.value = '';
+  }
+};
 
   const handleImageDrop: React.DragEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
@@ -148,6 +160,10 @@ export default function BookEditor({ bookId }: Props) {
     }
   };
 
+
+
+
+
   return (
     <div className="space-y-4">
       {/* error banner */}
@@ -193,7 +209,11 @@ export default function BookEditor({ bookId }: Props) {
             className="rounded-2xl border-dashed border-2 border-neutral-300 bg-neutral-100/70 min-h-[160px] p-4"
           >
             <div className="mb-2 text-sm opacity-70">Gambar cover (drag & drop / klik)</div>
-            <input ref={coverFileRef} type="file" accept="image/*" onChange={onCoverInput} className="hidden" />
+            <input ref={coverFileRef}
+  type="file"
+  accept="image/*"
+  onChange={onCoverInput}
+  className="hidden" />
             {coverUrl ? (
               <div className="h-[160px] bg-white/60 grid place-items-center rounded-xl relative">
                 <img src={coverUrl} className="max-h-[150px] object-contain" />
@@ -280,23 +300,11 @@ export default function BookEditor({ bookId }: Props) {
                 Gambar halaman
               </div>
               <input
-                ref={pageFileRef}
-                type="file"
-                accept="image/*"
-                onChange={async e => {
-                  const f = e.target.files?.[0];
-                  if (!f) return;
-                  setErr(null);
-                  try {
-                    const { url } = await BooksAPI.uploadImage(f);
-                    setPageImageUrl(url);
-                  } catch (ex: any) {
-                    setErr(ex?.response?.data?.message || ex?.message || 'Upload gambar halaman gagal.');
-                  } finally {
-                    e.currentTarget.value = '';
-                  }
-                }}
-                className="hidden"
+                  ref={pageFileRef}
+  type="file"
+  accept="image/*"
+  onChange={onPageImageInput}
+  className="hidden"
               />
               {cur?.imageUrl ? (
                 <div className="h-[260px] bg-white/60 grid place-items-center rounded-xl relative">

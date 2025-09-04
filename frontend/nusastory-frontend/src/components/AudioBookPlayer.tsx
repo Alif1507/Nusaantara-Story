@@ -2,8 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { api } from "../lib/apiToken"; // axios instance with Authorization (optional)
-import { useAuthToken } from "../auth/AuthContextToken";
-import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 
 
@@ -172,9 +170,7 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
   };
 
   const current = items[idx];
-  const { user, ready } = useAuthToken()
-  
-  if (!ready) return null
+
 
   return (
     <div className="min-h-screen w-full p-6">

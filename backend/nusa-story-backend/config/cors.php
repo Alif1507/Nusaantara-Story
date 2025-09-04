@@ -8,76 +8,28 @@ $allowedOrigins = array_values(array_unique(array_filter(array_merge([$defaultOr
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Paths
-    |--------------------------------------------------------------------------
-    |
-    | Hanya path ini yang akan diproses CORS middleware. Pastikan endpoint kamu
-    | ada di routes/api.php (mis. /api/uploads/images) agar tercakup 'api/*'.
-    |
-    */
-    'paths' => [
-        'api/*',
-        'sanctum/csrf-cookie',
-        // kalau kamu PAKSA pakai route non-API untuk upload, tambahkan:
-        // 'uploads/*',
-    ],
+    // pastikan semua endpoint yang dipanggil browser ada di /api/*
+    'paths' => ['api/*','uploads/*'],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Allowed Methods
-    |--------------------------------------------------------------------------
-    */
     'allowed_methods' => ['*'],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Allowed Origins
-    |--------------------------------------------------------------------------
-    |
-    | Sumber asal (origin) yang diizinkan. Default ambil dari FRONTEND_URL,
-    | bisa tambah banyak via CORS_ALLOWED_ORIGINS (dipisah koma) di .env.
-    |
-    */
-    'allowed_origins' => $allowedOrigins,
+    // origin FE kamu
+    'allowed_origins' => ['http://localhost:5173'],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Allowed Origins Patterns
-    |--------------------------------------------------------------------------
-    */
     'allowed_origins_patterns' => [],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Allowed Headers
-    |--------------------------------------------------------------------------
-    */
-    'allowed_headers' => ['*'],
+    // <- ini yang bikin preflight lolos
+    // boleh pakai wildcard:
+    // 'allowed_headers' => ['*'],
+    // atau spesifik (direkomendasikan):
+    'allowed_headers' => ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Exposed Headers
-    |--------------------------------------------------------------------------
-    */
     'exposed_headers' => [],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Max Age
-    |--------------------------------------------------------------------------
-    */
-    'max_age' => 0,
+    // cache preflight
+    'max_age' => 86400,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Supports Credentials
-    |--------------------------------------------------------------------------
-    |
-    | Kamu pakai Bearer token, jadi biarkan FALSE. Kalau suatu saat pakai
-    | cookie/Sanctum SPA, ubah ke TRUE dan pastikan allowed_origins spesifik.
-    |
-    */
+    // pakai Bearer token, jadi false
     'supports_credentials' => false,
+
 ];

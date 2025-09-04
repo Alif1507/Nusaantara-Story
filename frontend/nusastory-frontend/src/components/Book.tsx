@@ -13,7 +13,7 @@ const Book = () => {
       <div className="absolute top-1/2 left-1/2  flex flex-col md:flex-row gap-8 md:gap-30 -translate-x-1/2 -translate-y-1/2 z-50 ayam">
         {/* First block */}
         {/* Container opsional: beri jarak antar card di mobile, hilang di desktop */}
-<div className="flex flex-col items-center gap-4 md:gap-0">
+<div className="flex flex-col md:flex-row md:gap-15  items-center gap-4 md:gap-0">
 
   {/* First block */}
   <div className="

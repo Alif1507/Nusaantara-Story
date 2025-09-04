@@ -25,32 +25,32 @@ export type PublicBook = {
 
 export const BooksAPI = {
   async list() {
-    const { data } = await api.get('/books');
+    const { data } = await api.get('/api/books');
     return data; // bisa {data:[]} atau array (Dashboard sudah handle)
   },
   async get(id: number) {
-    const { data } = await api.get(`/books/${id}`);
+    const { data } = await api.get(`/api/books/${id}`);
     return data;
   },
   async create(dto: any) {
-    const { data } = await api.post('/books', dto);
+    const { data } = await api.post('/api/books', dto);
     return data;
   },
   async update(id: number, dto: any) {
-    const { data } = await api.put(`/books/${id}`, dto);
+    const { data } = await api.put(`/api/books/${id}`, dto);
     return data;
   },
   async remove(id: number) {
     await api.delete(`/books/${id}`);
   },
   async publish(id: number) {
-    const { data } = await api.post(`/books/${id}/publish`);
+    const { data } = await api.post(`/api/books/${id}/publish`);
     return data;
   },
   async uploadImage(file: File) {
     const fd = new FormData();
     fd.append('image', file); // samakan dengan key di controller Laravel
-    const { data } = await api.post('/uploads/images', fd); // JANGAN set Content-Type manual
+    const { data } = await api.post('/api/uploads/images', fd); // JANGAN set Content-Type manual
     return data; // { url: string }
   },
 };
