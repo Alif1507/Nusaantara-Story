@@ -30,14 +30,22 @@ function unwrap<T>(json: T | ApiEnvelope<T>): T {
 }
 
 // ----- API -----
-async function fetchPublicBook(slug: string, signal?: AbortSignal): Promise<PublicBook> {
-  const res = await fetch(`${API_URL}/api/public/books/${encodeURIComponent(slug)}`, {
-    headers: { Accept: "application/json" },
-    signal,
-  });
+async function fetchPublicBook(
+  slug: string,
+  signal?: AbortSignal
+): Promise<PublicBook> {
+  const res = await fetch(
+    `${API_URL}/api/public/books/${encodeURIComponent(slug)}`,
+    {
+      headers: { Accept: "application/json" },
+      signal,
+    }
+  );
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`API ${res.status} ${res.statusText} - ${text.slice(0, 200)}`);
+    throw new Error(
+      `API ${res.status} ${res.statusText} - ${text.slice(0, 200)}`
+    );
   }
   const json = await res.json();
   return unwrap<PublicBook>(json);
@@ -134,9 +142,24 @@ export default function ViewPublic() {
 
   return (
     <div style={{ maxWidth: 960, margin: "24px auto", padding: "0 16px" }}>
-        <Link to="/dashboard" className=''><h1 className="text-2xl font-bold bg-[#D72D27] absolute left-10 top-10 text-white p-3 rounded-xl cursor-pointer w-[130px] flex items-center gap-3"><ArrowLeft /> Back</h1></Link>
-        <img src="/img/logo3.png" className='h-[74px] w-auto absolute top-10 right-10' alt="" />
-      <h1 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 16 }}>
+      <Link to="/dashboard" className="">
+        <h1 className="text-2xl font-bold bg-[#D72D27] absolute left-10 top-10 text-white p-3 rounded-xl cursor-pointer w-[130px] flex items-center gap-3">
+          <ArrowLeft /> Back
+        </h1>
+      </Link>
+      <img
+        src="/img/logo3.png"
+        className="h-[74px] w-auto absolute top-10 right-10"
+        alt=""
+      />
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize: 28,
+          fontWeight: 800,
+          marginBottom: 16,
+        }}
+      >
         {book.title}
       </h1>
 
@@ -146,7 +169,12 @@ export default function ViewPublic() {
           <img
             src={book.cover_url}
             alt="Cover"
-            style={{ width: 220, height: "auto", borderRadius: 8, objectFit: "cover" }}
+            style={{
+              width: 220,
+              height: "auto",
+              borderRadius: 8,
+              objectFit: "cover",
+            }}
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
               // show text fallback next to it
@@ -157,7 +185,9 @@ export default function ViewPublic() {
             }}
           />
         ) : (
-          <div style={{ ...placeholderStyle, width: 220, height: 300 }}>(no cover)</div>
+          <div style={{ ...placeholderStyle, width: 220, height: 300 }}>
+            (no cover)
+          </div>
         )}
       </div>
 
@@ -177,10 +207,14 @@ export default function ViewPublic() {
               }}
             >
               <div style={{ minHeight: 120 }}>
-                <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
+                <div
+                  style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}
+                >
                   Page {p.number ?? "?"}
                 </div>
-                <div style={{ whiteSpace: "pre-wrap" }}>{p.text || <em>(no text)</em>}</div>
+                <div style={{ whiteSpace: "pre-wrap" }}>
+                  {p.text || <em>(no text)</em>}
+                </div>
               </div>
 
               <div>
@@ -202,7 +236,9 @@ export default function ViewPublic() {
                       const wrapper = img.parentElement as HTMLElement;
                       img.remove();
                       const fallback = document.createElement("div");
-                      Object.assign(fallback.style, placeholderStyle, { height: "240px" });
+                      Object.assign(fallback.style, placeholderStyle, {
+                        height: "240px",
+                      });
                       fallback.textContent = "(image unavailable)";
                       wrapper.appendChild(fallback);
                     }}

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useAuthToken } from '../auth/AuthContextToken'
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,7 +28,7 @@ const LoginPage = () => {
       <div className='flex gap-10 absolute bottom-15 text-white'>
         <Link to="/about">Tentang</Link>
         <Link to="/cerita">Cerita</Link>
-        <Link to="/audio">AudioBook</Link>
+        <Link to="/audiobook">AudioBook</Link>
         <Link to="/">Home</Link>
       </div>
     </div>
