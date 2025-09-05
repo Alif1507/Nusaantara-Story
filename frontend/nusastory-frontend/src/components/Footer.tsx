@@ -8,7 +8,7 @@ import { MdEmail } from "react-icons/md";
 const Footer = () => {
   return (
     <div className='mt-20 md:mt-60 relative'>
-      <div className="absolute z-30 bottom-0 left-0 w-full h-[150px] md:h-[200px] bg-[#D72D27] rounded-t-[30px] md:rounded-t-[56px]"></div>
+      <div className="absolute z-30 bottom-0 left-0 w-full md:h-[200px] bg-[#D72D27] rounded-t-[30px] md:rounded-t-[56px] 2xl:h-[252px] 2xl:rounded-[80px]"></div>
       <img className='absolute bottom-0 w-full z-40' src="/gambar/batik-footer.png" alt="" />
       <div className="absolute z-40 bottom-0 left-0 w-full h-[120px] md:h-[170px] bg-gradient-to-b from-[#A02F1F]/0 via-[#A02F1F]/100 to-[#A02F1F]"></div>
       <div className='flex justify-center px-4 md:px-0'>

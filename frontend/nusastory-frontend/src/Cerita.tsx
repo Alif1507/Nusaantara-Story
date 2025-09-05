@@ -3,6 +3,7 @@ import Herocerita from './components/Herocerita'
 import Rekomendasi from './components/Rekomendasi'
 import Caricerita from './components/Caricerita'
 import Footer from './components/Footer'
+import AudioBookPlayer from './components/AudioBookPlayer'
 
 const Cerita = () => {
   return (
@@ -11,6 +12,7 @@ const Cerita = () => {
         <Herocerita />
         <Rekomendasi />
         <Caricerita />
+        <AudioBookPlayer />
         <Footer />
     </main>
   )

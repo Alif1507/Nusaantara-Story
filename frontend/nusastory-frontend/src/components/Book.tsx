@@ -17,8 +17,8 @@ const Book = () => {
 
   {/* First block */}
   <div className="
-    flex flex-col items-center
-    w-full max-w-sm rounded-2xl bg-white/90 backdrop-blur-sm p-4 shadow-lg ring-1 ring-black/10
+    flex flex-col items-center mt-40 xl:mt-0 md:mt-0
+    w-full max-w-sm rounded-2xl md:mr-25 xl:mr-25 bg-white/90 backdrop-blur-sm p-4 shadow-lg ring-1 ring-black/10
     transition-transform duration-200 active:scale-[0.98]
     md:bg-transparent md:backdrop-blur-0 md:shadow-none md:ring-0 md:p-0 md:rounded-none
   ">
@@ -26,7 +26,7 @@ const Book = () => {
       style={{ fontFamily: "Inknut Antiqua, serif" }}
       className="text-center text-base md:text-lg mb-4"
     >
-      Minta Saran Nasa Untuk <br /> Rekomendasi Cerita Rakyat
+      Lihat Rekomendasi <br /> Untuk Mulai Membaca
     </h1>
 
     <Link to="/recomendasi">

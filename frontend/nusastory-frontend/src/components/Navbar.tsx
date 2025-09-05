@@ -29,6 +29,10 @@ const Navbar = () => {
           color: "#A02F1F",
           duration: 0.5,
         });
+         gsap.to(".hamburger-button", {
+          color: "#fff",
+          duration: 0.5,
+        });
       } else {
         gsap.to(".navbar", {
           backgroundColor: "transparent",
@@ -49,6 +53,10 @@ const Navbar = () => {
         gsap.to(".login-btn", {
           backgroundColor: "#A02F1F",
           color: "#fff",
+          duration: 0.5,
+        });
+        gsap.to(".hamburger-button", {
+          color: "#A02F1F",
           duration: 0.5,
         });
       }
@@ -122,11 +130,11 @@ const Navbar = () => {
         
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-[#A02F1F] focus:outline-none z-50"
+          className="md:hidden text-[#A02F1F] focus:outline-none z-50 hamburger-button"
           id="hamburger"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu className="text-white" size={24} />}
+          {isOpen ? <X size={24} /> : <Menu className="" size={24} />}
         </button>
       </div>
       

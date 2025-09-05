@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { api } from "../lib/apiToken"; // axios instance with Authorization (optional)
 import Navbar from "./Navbar";
+import "@fontsource/inknut-antiqua/300.css";
+import "@fontsource/poppins/300.css";
 
 
 // ===== Types =====
@@ -174,7 +176,15 @@ const onScrub = (e: React.MouseEvent<HTMLDivElement>) => {
 
   return (
     <div className="min-h-screen w-full p-6">
-     <Navbar />
+      <div className="flex justify-center items-center">
+        <div className="">
+          <h1 style={{ fontFamily: "Inknut Antiqua, serif" }} className="text-[30px] md:text-[40px] text-[#A02F1F] md:text-left ">AudioBook</h1>
+          <div className="flex items-center gap-3">
+            <h1 style={{ fontFamily: "Inknut Antiqua, serif" }} className="text-[25px] md:text-[40px] text-[#A02F1F] md:text-center">Cerita</h1>
+            <img src="/gambar/audio.png" alt="" />
+          </div>
+        </div>
+      </div>
       <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6 mt-32">
         {/* Library */}
        <div

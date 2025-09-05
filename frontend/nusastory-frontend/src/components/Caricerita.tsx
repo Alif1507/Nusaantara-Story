@@ -46,7 +46,7 @@ const dataBuku = [
            </Link>
         </div>
                 <div className='flex justify-center items-center'>
-                    <div className='grid grid-cols-2 gap-10 mt-20 mb-20'>
+                    <div className='grid grid-cols-1 gap-10 mt-20 mb-20 md:grid-cols-2 '>
                         {dataBuku.map((book) => (
                             <div key={book.id} className='bg-[#A02F1F] px-6 py-3 rounded-xl relative w-90 text-right'>
                                 <img src={book.image} alt=""/>

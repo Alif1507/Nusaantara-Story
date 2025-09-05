@@ -14,11 +14,13 @@ import ChatStreamPage from "./pages/ChatStreamPage";
 import AudioLibraryPlayer from "./components/AudioBookPlayer";
 import Bacacerita from "./Bacacerita";
 import About from "./About";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <AuthProviderToken>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           {/* Guest Routes */}
           <Route
@@ -41,9 +43,8 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<Landing />} />
           <Route path="/about" element={<About />} />
-          <Route path="/tentang" element={<About />} />
           <Route path="/cerita" element={<Cerita />} />
-          <Route path="/baca" element={<Bacacerita />} />
+          <Route path="/baca/:id" element={<Bacacerita />} />
           <Route path="/audiobook" element={<AudioLibraryPlayer />} />
 
           {/* Protected Routes */}
